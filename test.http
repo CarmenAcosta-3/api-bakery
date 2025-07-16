@@ -1,5 +1,5 @@
 ### Crear un nuevo producto
-POST http://localhost:3000/productos
+POST https://api-bakery-production.up.railway.app/productos
 Content-Type: application/json
 
 {
