@@ -1,29 +1,31 @@
+// server.js
+
 const express = require("express");
 const mongoose = require("mongoose");
-const Producto = require("./Producto");
 const cors = require("cors");
-require("dotenv").config(); // Cargar variables desde .env
+const dotenv = require("dotenv");
+const Producto = require("./Producto");
+
+// Cargar variables de entorno desde .env
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.json());
-app.use(cors());
+app.use(express.json()); // Para parsear JSON
+app.use(cors()); // Para permitir solicitudes desde el frontend
 
-// Variables de entorno
-const PORT = process.env.PORT || 3000;
-const MONGODB_URL = process.env.MONGODB_URL;
-
-// Conexión a MongoDB Atlas
+// Conexión con MongoDB Atlas usando la URL del .env
 mongoose
-  .connect(MONGODB_URL, {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("✅ Conectado a MongoDB con Mongoose"))
+  .then(() => console.log("✅ Conectado a MongoDB"))
   .catch((err) => console.error("❌ Error al conectar con MongoDB:", err));
 
-// Rutas
+// Ruta para crear productos
 app.post("/productos", async (req, res) => {
   try {
     const nuevoProducto = new Producto(req.body);
@@ -39,6 +41,7 @@ app.post("/productos", async (req, res) => {
   }
 });
 
+// Ruta para obtener productos
 app.get("/productos", async (req, res) => {
   try {
     const productos = await Producto.find();
@@ -52,5 +55,5 @@ app.get("/productos", async (req, res) => {
 
 // Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
+  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
