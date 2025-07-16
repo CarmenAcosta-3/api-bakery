@@ -9,4 +9,4 @@ Content-Type: application/json
 }
 
 ### Obtener todos los productos
-GET http://localhost:3000/productos
+GET https://api-bakery-production.up.railway.app/productos
