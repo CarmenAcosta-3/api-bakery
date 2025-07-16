@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crear Producto</title>
+  </head>
+  <body>
+    <h1>Crear nuevo producto</h1>
+    <form id="productoForm">
+      <label for="name">Nombre:</label><br />
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="price">Precio:</label><br />
+      <input
+        type="number"
+        id="price"
+        name="price"
+        step="0.01"
+        required
+      /><br /><br />
+
+      <label for="url">URL imagen:</label><br />
+      <input type="url" id="url" name="url" required /><br /><br />
+
+      <label for="category">Categoría:</label><br />
+      <input type="text" id="category" name="category" required /><br /><br />
+
+      <button type="submit">Guardar producto</button>
+    </form>
+
+    <p id="resultado"></p>
+
+    <script>
+      const form = document.getElementById("productoForm");
+      const resultado = document.getElementById("resultado");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const producto = {
+          nombre: form.name.value,
+          precio: parseFloat(form.price.value),
+          url: form.url.value,
+          categoria: form.category.value,
+        };
+
+        try {
+          const res = await fetch(
+            "https://api-bakery-production.up.railway.app/productos",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(producto),
+            }
+          );
+
+          if (res.ok) {
+            resultado.textContent = "Producto creado con éxito!";
+            form.reset();
+          } else {
+            const errorData = await res.json();
+            resultado.textContent =
+              "Error al crear producto: " + (errorData.error || res.statusText);
+          }
+        } catch (error) {
+          resultado.textContent = "Error en la petición: " + error.message;
+        }
+      });
+    </script>
+  </body>
+</html>

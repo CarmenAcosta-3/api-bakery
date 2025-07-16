@@ -10,6 +10,14 @@ const productoSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  url: {
+    type: String,
+    required: false,
+  },
+  categoria: {
+    type: String,
+    required: false,
+  },
 });
 
 // Exportar el modelo para usarlo en otras partes del proyecto
