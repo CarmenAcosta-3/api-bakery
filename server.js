@@ -17,11 +17,10 @@ app.use(express.json()); // Para parsear JSON
 app.use(cors()); // Para permitir solicitudes desde el frontend
 
 // Conexión con MongoDB Atlas usando la URL del .env
+
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
+
   .then(() => console.log("✅ Conectado a MongoDB"))
   .catch((err) => console.error("❌ Error al conectar con MongoDB:", err));
 
