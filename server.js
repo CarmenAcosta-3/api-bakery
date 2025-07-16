@@ -52,6 +52,43 @@ app.get("/productos", async (req, res) => {
   }
 });
 
+app.put("/productos/:id", async (req, res) => {
+  try {
+    const actualizado = await Producto.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(actualizado);
+  } catch (error) {
+    res.status(400).json({ error: "Error actualizando producto" });
+  }
+});
+
+app.delete("/productos/:id", async (req, res) => {
+  try {
+    const eliminado = await Producto.findByIdAndDelete(req.params.id);
+    if (!eliminado)
+      return res.status(404).json({ error: "Producto no encontrado" });
+    res.json({ mensaje: "Producto eliminado correctamente" });
+  } catch (error) {
+    res.status(400).json({ error: "Error eliminando producto" });
+  }
+});
+
+app.patch("/productos/:id", async (req, res) => {
+  try {
+    const actualizado = await Producto.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(actualizado);
+  } catch (error) {
+    res.status(400).json({ error: "Error actualizando producto" });
+  }
+});
+
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
