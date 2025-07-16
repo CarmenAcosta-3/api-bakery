@@ -1,0 +1,12 @@
+# Archivos sensibles
+.env
+
+# Dependencias
+node_modules/
+
+# Archivos temporales
+*.log
+
+# Configuración de editores
+.vscode/
+.DS_Store

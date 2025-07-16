@@ -1,0 +1,12 @@
+### Crear un nuevo producto
+POST http://localhost:3000/productos
+Content-Type: application/json
+
+{
+  "nombre": "Pan de chocolate",
+  "precio": 4.5,
+  "descripcion": "Pan relleno con chocolate oscuro"
+}
+
+### Obtener todos los productos
+GET http://localhost:3000/productos
