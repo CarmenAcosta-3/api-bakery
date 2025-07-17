@@ -22,7 +22,7 @@ const productoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  alérgenos: {
+  alergenos: {
     type: String,
     required: true,
   },
