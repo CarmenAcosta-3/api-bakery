@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Definición del esquema del producto
 const productoSchema = new mongoose.Schema({
-  nombre: {
+  name: {
     type: String,
     required: true,
   },
@@ -12,11 +12,30 @@ const productoSchema = new mongoose.Schema({
   },
   url: {
     type: String,
-    required: false,
+    required: true,
   },
   categoria: {
     type: String,
-    required: false,
+    required: true,
+  },
+  ingredientes: {
+    type: String,
+    required: true,
+  },
+  alérgenos: {
+    type: String,
+    required: true,
+  },
+  especialSemanal: {
+    type: String,
+    required: true,
+  },
+  porSiAcaso: {
+    type: String,
+    required: true,
+  },
+  porSiAcaso: {
+    type: String,
   },
 });
 

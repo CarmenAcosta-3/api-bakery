@@ -10,3 +10,5 @@ Content-Type: application/json
 
 ### Obtener todos los productos
 GET https://api-bakery-production.up.railway.app/productos
+
+
