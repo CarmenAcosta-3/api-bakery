@@ -44,37 +44,17 @@
         required
       /><br /><br />
 
-      <label for="description">porSiAcaso</label>
-      <input
-        type="text"
-        id="porSiAcaso"
-        name="porSiAcaso"
-        required
-      /><br /><br />
+      <label for="description">temporal1</label>
+      <input type="text" id="temporal1" name="temporal1" required /><br /><br />
 
-      <label for="description">porSiAcaso</label>
-      <input
-        type="text"
-        id="porSiAcaso"
-        name="porSiAcaso"
-        required
-      /><br /><br />
+      <label for="description">temporal2</label>
+      <input type="text" id="temporal2" name="temporal2" required /><br /><br />
 
-      <label for="description">porSiAcaso</label>
-      <input
-        type="text"
-        id="porSiAcaso"
-        name="porSiAcaso"
-        required
-      /><br /><br />
+      <label for="description">temporal3</label>
+      <input type="text" id="temporal3" name="temporal3" required /><br /><br />
 
-      <label for="description">porSiAcaso</label>
-      <input
-        type="text"
-        id="porSiAcaso"
-        name="porSiAcaso"
-        required
-      /><br /><br />
+      <label for="description">temporal4</label>
+      <input type="text" id="temporal4" name="temporal4" required /><br /><br />
 
       <button type="submit">Guardar producto</button>
     </form>
@@ -93,6 +73,12 @@
           precio: parseFloat(form.price.value),
           url: form.url.value,
           categoria: form.category.value,
+          ingredientes: form.ingredientes.value,
+          alergenos: form.alergenos.value,
+          especial: form.especial.value,
+          porSiAcaso1: form.porSiAcaso1.value,
+          porSiAcaso2: form.porSiAcaso2.value,
+          porSiAcaso3: form.porSiAcaso3.value,
         };
 
         try {

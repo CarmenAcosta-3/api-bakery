@@ -28,13 +28,17 @@ const productoSchema = new mongoose.Schema({
   },
   especialSemanal: {
     type: String,
-    required: true,
   },
-  porSiAcaso: {
+  temporal1: {
     type: String,
-    required: true,
   },
-  porSiAcaso: {
+  temporal2: {
+    type: String,
+  },
+  temporal3: {
+    type: String,
+  },
+  temporal4: {
     type: String,
   },
 });
