@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Definición del esquema del producto
 const productoSchema = new mongoose.Schema({
-  name: {
+  nombre: {
     type: String,
     required: true,
   },
