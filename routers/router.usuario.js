@@ -1,7 +1,5 @@
-// routes/usuarios.routes.js
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
 const Usuario = require("../models/usuario");
 
 // Registro de usuario
@@ -9,21 +7,16 @@ router.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Verificar si ya existe el usuario
     const existe = await Usuario.findOne({ username });
     if (existe) return res.status(400).json({ error: "El usuario ya existe" });
 
-    // Encriptar contraseña
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const nuevoUsuario = new Usuario({
       username,
-      password: hashedPassword,
-      role: "user", // rol por defecto
+      password, // ⚠️ sin encriptar
+      role: "user",
     });
 
     await nuevoUsuario.save();
-
     res.status(201).json({ mensaje: "Usuario registrado con éxito" });
   } catch (error) {
     res.status(500).json({ error: "Error al registrar", detalle: error });
@@ -39,11 +32,9 @@ router.post("/login", async (req, res) => {
     if (!usuario)
       return res.status(404).json({ error: "Usuario no encontrado" });
 
-    const passwordValida = await bcrypt.compare(password, usuario.password);
-    if (!passwordValida)
+    if (usuario.password !== password)
       return res.status(401).json({ error: "Contraseña incorrecta" });
 
-    // Enviar datos del usuario (sin contraseña)
     res.json({
       mensaje: "Login exitoso",
       usuario: {
