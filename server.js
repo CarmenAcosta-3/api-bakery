@@ -11,7 +11,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://tu-frontend.vercel.app"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Conexión a MongoDB
@@ -22,6 +27,7 @@ mongoose
 
 // Rutas
 app.use("/productos", productosRoutes);
+app.use("/usuarios", usuariosRoutes);
 
 // Inicio del servidor
 app.listen(PORT, () => {
