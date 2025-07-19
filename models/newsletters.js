@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const newslettersRoutes = require("./routers/router.newsletters");
 
 const newsLettersSchema = new mongoose.Schema({
   nombre: {

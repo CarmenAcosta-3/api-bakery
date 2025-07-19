@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const productosRoutes = require("./routers/router.Productos");
 const usuariosRoutes = require("./routers/router.usuario");
 const blogRoutes = require("./routers/router.blog");
+const newslettersRoutes = require("./routers/router.newsletters");
 
 dotenv.config();
 
