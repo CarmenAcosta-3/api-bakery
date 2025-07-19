@@ -27,10 +27,10 @@ mongoose
   .catch((err) => console.error("❌ Error al conectar:", err));
 
 // Rutas
-app.use("/productos");
-app.use("/usuarios");
-app.use("/blog");
-app.use("/newsletters");
+app.use("/productos", productosRoutes);
+app.use("/usuarios", usuariosRoutes);
+app.use("/blog", blogRoutes);
+app.use("/newsletters", newslettersRoutes);
 
 // Inicio del servidor
 app.listen(PORT, () => {
