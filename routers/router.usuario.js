@@ -49,3 +49,15 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
+
+// Obtener lista de usuarios
+router.get("/", async (req, res) => {
+  try {
+    const usuarios = await Usuario.find({}, "-password"); // excluye password
+    res.json(usuarios);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error al obtener usuarios", detalle: error });
+  }
+});
