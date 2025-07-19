@@ -9,7 +9,7 @@ router.post("/newsletters", async (req, res) => {
   res.status(201).json(newNewsLetter);
 });
 
-router.get("newsletters", async (req, res) => {
+router.get("/newsletters", async (req, res) => {
   try {
     const newsLetters = await NewsLetters.find();
     res.json(newsLetters);
