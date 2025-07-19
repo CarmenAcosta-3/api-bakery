@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 
 const productosRoutes = require("./routers/router.Productos");
 const usuariosRoutes = require("./routers/router.usuario");
+const blogRoutes = require("./routers/router.blog");
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ mongoose
 // Rutas
 app.use("/productos", productosRoutes);
 app.use("/usuarios", usuariosRoutes);
+app.use("/blog", blogRoutes);
+app.use("/newsletters", newslettersRoutes);
 
 // Inicio del servidor
 app.listen(PORT, () => {
