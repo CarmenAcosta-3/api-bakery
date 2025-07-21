@@ -37,5 +37,3 @@ app.use("/newsletters", newslettersRoutes);
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
-
-app.use("/usuarios", usuariosRoutes);

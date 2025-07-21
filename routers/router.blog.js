@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Blog = require("../models/blog");
 
-router.post("/blog", async (req, res) => {
+router.post("/", async (req, res) => {
   const { nombre, fecha, contenido, imagen } = req.body;
   const nuevoBlog = new Blog({ nombre, fecha, contenido, imagen });
   await nuevoBlog.save();
   res.status(201).json(nuevoBlog);
 });
 
-router.get("/blog", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const blog = await Blog.find();
     res.json(blog);
@@ -18,7 +18,7 @@ router.get("/blog", async (req, res) => {
   }
 });
 
-router.put("/blog/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { nombre, fecha, contenido, imagen } = req.body;
   const blogActualizado = await Blog.findByIdAndUpdate(
