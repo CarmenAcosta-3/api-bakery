@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const productShoppingCarSchema = new mongoose.Schema({
+const productShoppingCartSchema = new mongoose.Schema({
   nombre: {
     type: String,
     required: true,
@@ -28,7 +28,7 @@ const productShoppingCarSchema = new mongoose.Schema({
 
 const ordersSchema = new mongoose.Schema({
   productos: {
-    type: [productShoppingCarSchema],
+    type: [productShoppingCartSchema],
     required: true,
   },
   total: {
