@@ -1,0 +1,4 @@
+1. Recuerda evitar spaninglish 
+2. En nombres de archivos usa mejor snakeCase (-) y camelcase (productsModuls).
+3. El timestamps en cualquier modelo de mongo te añade createdAt y updatedAt, ambos de tipos date. Te señala las creaciones, modificaciones, etc con su fecha y hora.
+4. Para el futuro, echar vistazo a crear controllers(son las funciones que usan las rutas).

@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
-const productosRoutes = require("./routers/router.Productos");
-const usuariosRoutes = require("./routers/router.usuario");
-const blogRoutes = require("./routers/router.blog");
-const newslettersRoutes = require("./routers/router.newsletters");
+const productosRoutes = require("./routers/router-Productos");
+const usuariosRoutes = require("./routers/router-usuario");
+const blogRoutes = require("./routers/router-blog");
+const newslettersRoutes = require("./routers/router-newsletters");
+const ordersRoutes = require("./routers/router-orders");
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use("/productos", productosRoutes);
 app.use("/usuarios", usuariosRoutes);
 app.use("/blog", blogRoutes);
 app.use("/newsletters", newslettersRoutes);
+app.use("/orders", ordersRoutes);
 
 // Inicio del servidor
 app.listen(PORT, () => {
