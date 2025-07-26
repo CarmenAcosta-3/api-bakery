@@ -1,13 +1,35 @@
-// models/Usuario.js
 const mongoose = require("mongoose");
 
-const usuarioSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, default: "user", enum: ["user", "admin"] },
+    name: {
+      type: String,
+      required: true,
+    },
+    avatar: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    repeatPassword: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      default: "cliente", // o lo que uses por defecto
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true, // añade createdAt y updatedAt automáticamente
+  }
 );
 
-module.exports = mongoose.model("Usuario", usuarioSchema);
+module.exports = mongoose.model("User", userSchema);

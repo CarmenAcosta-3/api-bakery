@@ -1,63 +1,57 @@
 const express = require("express");
 const router = express.Router();
-const Usuario = require("../models/usuario");
+const User = require("../models/User");
 
-// Registro de usuario
-router.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+// Obtener todos los usuarios
+router.get("/", async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
 
+// Obtener un usuario por ID
+router.get("/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+  res.json(user);
+});
+
+// Crear usuario nuevo
+router.post("/", async (req, res) => {
   try {
-    const existe = await Usuario.findOne({ username });
-    if (existe) return res.status(400).json({ error: "El usuario ya existe" });
+    const { name, avatar, email, password, repeatPassword, role } = req.body;
 
-    const nuevoUsuario = new Usuario({
-      username,
-      password, // ⚠️ sin encriptar
-      role: "user",
+    const existing = await User.findOne({ email });
+    if (existing)
+      return res.status(400).json({ message: "Email ya registrado" });
+
+    const newUser = new User({
+      name,
+      avatar,
+      email,
+      password,
+      repeatPassword,
+      role,
     });
+    await newUser.save();
 
-    await nuevoUsuario.save();
-    res.status(201).json({ mensaje: "Usuario registrado con éxito" });
+    res.status(201).json(newUser);
   } catch (error) {
-    res.status(500).json({ error: "Error al registrar", detalle: error });
+    res.status(500).json({ message: "Error al crear usuario", error });
   }
 });
 
-// Login de usuario
-router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+// Editar usuario
+router.put("/:id", async (req, res) => {
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  res.json(updatedUser);
+});
 
-  try {
-    const usuario = await Usuario.findOne({ username });
-    if (!usuario)
-      return res.status(404).json({ error: "Usuario no encontrado" });
-
-    if (usuario.password !== password)
-      return res.status(401).json({ error: "Contraseña incorrecta" });
-
-    res.json({
-      mensaje: "Login exitoso",
-      usuario: {
-        id: usuario._id,
-        username: usuario.username,
-        role: usuario.role,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ error: "Error al iniciar sesión", detalle: error });
-  }
+// Eliminar usuario
+router.delete("/:id", async (req, res) => {
+  await User.findByIdAndDelete(req.params.id);
+  res.json({ message: "Usuario eliminado correctamente" });
 });
 
 module.exports = router;
-
-// Obtener lista de usuarios
-router.get("/", async (req, res) => {
-  try {
-    const usuarios = await Usuario.find({}, "-password"); // excluye password
-    res.json(usuarios);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Error al obtener usuarios", detalle: error });
-  }
-});
