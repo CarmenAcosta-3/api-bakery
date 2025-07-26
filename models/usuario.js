@@ -20,15 +20,15 @@ const userSchema = new mongoose.Schema(
     },
     repeatPassword: {
       type: String,
-      required: true,
+      required: false,
     },
     role: {
       type: String,
-      default: "cliente", // o lo que uses por defecto
+      default: "user",
     },
   },
   {
-    timestamps: true, // añade createdAt y updatedAt automáticamente
+    timestamps: true,
   }
 );
 
