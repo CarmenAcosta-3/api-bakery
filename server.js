@@ -30,7 +30,7 @@ mongoose
 
 // Rutas
 app.use("/productos", productosRoutes);
-app.use("/usuario", usuariosRoutes);
+app.use("/users", usuariosRoutes);
 app.use("/blog", blogRoutes);
 app.use("/newsletters", newslettersRoutes);
 app.use("/orders", ordersRoutes);
