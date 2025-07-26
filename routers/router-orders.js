@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Order = require("../models/orders");
-const productShoppingCar = require("../models/Producto");
+const productsShoppingCar = require("../models/Producto.js");
 
-router.post("/orders", async (req, res) => {
+router.post("/", async (req, res) => {
   const { nombre, precio, quantity, date, categoria, status, user, email } =
     req.body;
   const newOrder = new Order({
@@ -20,12 +20,12 @@ router.post("/orders", async (req, res) => {
   res.status(201).json(newOrder);
 });
 
-router.get("/orders", async (req, res) => {
+router.get("/", async (req, res) => {
   const orders = await Order.find();
   res.json(orders);
 });
 
-router.put("/orders/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { nombre, precio, quantity, date, categoria, status, user, email } =
     req.body;
@@ -37,7 +37,7 @@ router.put("/orders/:id", async (req, res) => {
   res.json(updatedOrder);
 });
 
-router.delete("/orders/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   await Order.findByIdAndDelete(id);
   res.json({ message: "Order deleted successfully" });
