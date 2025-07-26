@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/orders");
 
-// ✅ Crear nuevo pedido
 router.post("/", async (req, res) => {
   try {
     const { productos, total, categoria, status, user, email } = req.body;
@@ -24,7 +23,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// ✅ Obtener todos los pedidos con datos de usuario
 router.get("/", async (req, res) => {
   try {
     const orders = await Order.find().populate("user", "name email role");
@@ -35,7 +33,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ✅ Actualizar un pedido
 router.put("/:id", async (req, res) => {
   try {
     const { productos, total, categoria, status, user, email } = req.body;
@@ -60,7 +57,27 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// ✅ Eliminar un pedido
+router.patch("/:id", async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Pedido no encontrado" });
+    }
+
+    res.json(updatedOrder);
+  } catch (error) {
+    console.error("Error al actualizar estado del pedido:", error);
+    res.status(500).json({ message: "Error al actualizar estado del pedido" });
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   try {
     await Order.findByIdAndDelete(req.params.id);
