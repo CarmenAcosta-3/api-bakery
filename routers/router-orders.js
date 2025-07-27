@@ -33,6 +33,19 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/user/:id", async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.params.id }).populate(
+      "user",
+      "name email role"
+    );
+    res.json(orders);
+  } catch (error) {
+    console.error("Error al obtener pedidos:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+});
+
 router.put("/:id", async (req, res) => {
   try {
     const { productos, total, categoria, status, user, email } = req.body;
