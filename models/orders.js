@@ -24,6 +24,10 @@ const productShoppingCartSchema = new mongoose.Schema({
   size: {
     type: String,
   },
+  url: {
+    type: String,
+    required: false,
+  },
 });
 
 const ordersSchema = new mongoose.Schema({
