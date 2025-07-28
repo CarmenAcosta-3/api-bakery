@@ -13,6 +13,7 @@ router.post("/", async (req, res) => {
       status,
       user,
       email,
+      url,
     });
 
     await newOrder.save();
