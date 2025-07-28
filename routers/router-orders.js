@@ -6,14 +6,25 @@ router.post("/", async (req, res) => {
   try {
     const { productos, total, categoria, status, user, email, url } = req.body;
 
+    const Producto = require("../models/Producto.js");
+
+    const productosConImagen = await Promise.all(
+      productos.map(async (prod) => {
+        const productoBD = await Producto.findOne({ nombre: prod.nombre });
+        return {
+          ...prod,
+          url: productoBD?.url || "",
+        };
+      })
+    );
+
     const newOrder = new Order({
-      productos,
+      productos: productosConImagen,
       total,
       categoria,
       status,
       user,
       email,
-      url,
     });
 
     await newOrder.save();
