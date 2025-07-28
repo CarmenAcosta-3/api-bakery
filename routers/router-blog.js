@@ -29,4 +29,22 @@ router.put("/:id", async (req, res) => {
   res.json(blogActualizado);
 });
 
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const blogEliminado = await Blog.findByIdAndDelete(id);
+
+    if (!blogEliminado) {
+      return res.status(404).json({ error: "Blog no encontrado" });
+    }
+
+    res.json({ message: "Blog eliminado correctamente", blog: blogEliminado });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Error al eliminar el blog", detalle: error });
+  }
+});
+
 module.exports = router;

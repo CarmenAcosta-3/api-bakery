@@ -8,6 +8,7 @@ const usuariosRoutes = require("./routers/router-usuario");
 const blogRoutes = require("./routers/router-blog");
 const newslettersRoutes = require("./routers/router-newsletters");
 const ordersRoutes = require("./routers/router-orders");
+const emailRoutes = require("./routes/email");
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use("/users", usuariosRoutes);
 app.use("/blog", blogRoutes);
 app.use("/newsletters", newslettersRoutes);
 app.use("/orders", ordersRoutes);
+app.use("/email", emailRoutes);
 
 // Inicio del servidor
 app.listen(PORT, () => {
