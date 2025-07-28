@@ -8,7 +8,7 @@ const usuariosRoutes = require("./routers/router-usuario");
 const blogRoutes = require("./routers/router-blog");
 const newslettersRoutes = require("./routers/router-newsletters");
 const ordersRoutes = require("./routers/router-orders");
-const emailRoutes = require("./routes/email");
+const emailRoutes = require("./routers/router-email");
 
 dotenv.config();
 
