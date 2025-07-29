@@ -23,13 +23,11 @@ app.use(
 );
 app.use(express.json());
 
-// Conexión a MongoDB
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("✅ Conectado a MongoDB"))
   .catch((err) => console.error("❌ Error al conectar:", err));
 
-// Rutas
 app.use("/productos", productosRoutes);
 app.use("/users", usuariosRoutes);
 app.use("/blog", blogRoutes);
@@ -37,7 +35,6 @@ app.use("/newsletters", newslettersRoutes);
 app.use("/orders", ordersRoutes);
 app.use("/email", emailRoutes);
 
-// Inicio del servidor
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
