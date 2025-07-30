@@ -42,6 +42,8 @@ router.post("/", async (req, res) => {
 
 // Editar usuario
 router.put("/:id", async (req, res) => {
+  console.log("BODY RECIBIDO", req.body);
+
   const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
