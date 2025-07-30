@@ -213,4 +213,18 @@ router.post("/reintentar/:id", async (req, res) => {
   }
 });
 
+// Eliminar confirmación
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleted = await EmailConfirmacion.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: "Confirmación no encontrada" });
+    }
+    res.json({ message: "Confirmación eliminada correctamente" });
+  } catch (error) {
+    console.error("Error eliminando confirmación:", error);
+    res.status(500).json({ error: "Error al eliminar la confirmación" });
+  }
+});
+
 module.exports = router;
