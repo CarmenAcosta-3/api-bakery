@@ -1,6 +1,8 @@
 const Order = require("../models/orders");
 const Producto = require("../models/Producto");
-const { enviarActualizacionEstado } = require("./email");
+const {
+  enviarActualizacionEstado,
+} = require("../controllers/controller-email");
 const Notification = require("../models/notification");
 
 const crearPedido = async (req, res) => {
