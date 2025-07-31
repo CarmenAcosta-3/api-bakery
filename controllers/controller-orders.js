@@ -1,5 +1,7 @@
 const Order = require("../models/orders");
 const Producto = require("../models/Producto");
+const { enviarActualizacionEstado } = require("./email");
+const Notification = require("../models/notification");
 
 const crearPedido = async (req, res) => {
   try {
@@ -91,6 +93,25 @@ const actualizarEstadoPedido = async (req, res) => {
 
     if (!updatedOrder) {
       return res.status(404).json({ message: "Pedido no encontrado" });
+    }
+
+    if (updatedOrder.email) {
+      try {
+        await enviarActualizacionEstado(updatedOrder._id);
+      } catch (err) {
+        console.error("Error enviando email de estado:", err.message);
+      }
+    }
+
+    if (updatedOrder.user) {
+      try {
+        await Notification.create({
+          userId: updatedOrder.user,
+          message: `Tu pedido ${updatedOrder._id} ha cambiado a "${status}"`,
+        });
+      } catch (err) {
+        console.error("Error creando notificación:", err.message);
+      }
     }
 
     res.json(updatedOrder);

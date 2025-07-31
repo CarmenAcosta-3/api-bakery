@@ -57,6 +57,35 @@ const generarHtmlCorreo = (order) => `
   </div>
 `;
 
+const generarHtmlActualizacion = (order) => `
+  <div style="font-family: Arial, sans-serif; padding: 20px;">
+    <h2>Actualización de tu pedido</h2>
+    <p>El estado de tu pedido ha cambiado a: 
+      <strong style="color: #ffa726;">${order.status}</strong>
+    </p>
+    <p>Estos son los detalles actuales del pedido:</p>
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr style="background-color: #f0f0f0;">
+          <th style="padding: 10px; border: 1px solid #ddd;">Imagen</th>
+          <th style="padding: 10px; border: 1px solid #ddd;">Producto</th>
+          <th style="padding: 10px; border: 1px solid #ddd;">Talla</th>
+          <th style="padding: 10px; border: 1px solid #ddd;">Cantidad</th>
+          <th style="padding: 10px; border: 1px solid #ddd;">Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${generarHtmlProductos(order.productos)}
+      </tbody>
+    </table>
+    <p style="margin-top: 20px;"><strong>Total:</strong> ${order.total}€</p>
+    <p><strong>Correo de contacto:</strong> ${order.email}</p>
+    <p><strong>ID del pedido:</strong> ${order._id}</p>
+    <hr style="margin: 30px 0;" />
+    <p style="color: #888;">Este correo es automático, no respondas. Si necesitas ayuda, contáctanos desde la web.</p>
+  </div>
+`;
+
 const enviarConfirmacion = async (req, res) => {
   const { orderId, email } = req.body;
 
@@ -77,7 +106,6 @@ const enviarConfirmacion = async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-
     await EmailConfirmacion.create({ orderId, email, enviado: true });
 
     res
@@ -155,9 +183,26 @@ const eliminarConfirmacion = async (req, res) => {
   }
 };
 
+const enviarActualizacionEstado = async (orderId) => {
+  const order = await Order.findById(orderId);
+  if (!order || !order.email) throw new Error("Pedido sin email");
+
+  const html = generarHtmlActualizacion(order);
+
+  const mailOptions = {
+    from: `"Tu Tienda" <${process.env.EMAIL_USER}>`,
+    to: order.email,
+    subject: `Actualización: tu pedido está ahora "${order.status}"`,
+    html,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
 module.exports = {
   enviarConfirmacion,
   obtenerConfirmaciones,
   reintentarEnvio,
   eliminarConfirmacion,
+  enviarActualizacionEstado,
 };
