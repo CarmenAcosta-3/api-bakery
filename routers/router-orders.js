@@ -7,7 +7,7 @@ const {
   actualizarPedido,
   actualizarEstadoPedido,
   eliminarPedido,
-} = require("../controllers/orderController");
+} = require("../controllers/controller-orders");
 
 router.post("/", crearPedido);
 router.get("/", obtenerPedidos);

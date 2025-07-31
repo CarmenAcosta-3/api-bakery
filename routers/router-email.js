@@ -5,7 +5,7 @@ const {
   obtenerConfirmaciones,
   reintentarEnvio,
   eliminarConfirmacion,
-} = require("../controllers/emailController");
+} = require("../controllers/controller-email");
 
 router.post("/enviar-confirmacion", enviarConfirmacion);
 router.get("/confirmaciones", obtenerConfirmaciones);

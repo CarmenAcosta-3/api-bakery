@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   crearNewsLetter,
   obtenerNewsLetters,
-} = require("../controllers/newsletterController");
+} = require("../controllers/controller-newsletters");
 
 router.post("/", crearNewsLetter);
 router.get("/", obtenerNewsLetters);

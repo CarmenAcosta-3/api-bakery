@@ -5,7 +5,7 @@ const {
   obtenerBlogs,
   actualizarBlog,
   eliminarBlog,
-} = require("../controllers/blogController");
+} = require("../controllers/controller-blog");
 
 router.post("/", crearBlog);
 router.get("/", obtenerBlogs);
