@@ -38,7 +38,11 @@ const crearPedido = async (req, res) => {
 
 const obtenerPedidos = async (req, res) => {
   try {
-    const orders = await Order.find().populate("user", "name email role");
+    const { userId } = req.query;
+
+    const filter = userId ? { user: userId } : {};
+
+    const orders = await Order.find(filter).populate("user", "name email role");
     res.json(orders);
   } catch (error) {
     console.error("Error al obtener pedidos:", error);
