@@ -11,7 +11,7 @@ const {
 
 router.post("/", crearPedido);
 router.get("/", obtenerPedidos);
-router.get("/user/:id", obtenerPedidosPorUsuario);
+router.get("/user", obtenerPedidosPorUsuario);
 router.put("/:id", actualizarPedido);
 router.patch("/:id", actualizarEstadoPedido);
 router.delete("/:id", eliminarPedido);

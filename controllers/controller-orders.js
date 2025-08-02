@@ -50,9 +50,11 @@ const obtenerPedidosPorUsuario = async (req, res) => {
   try {
     const { userId } = req.query;
 
-    const filter = userId ? { user: userId } : {};
+    if (!userId) {
+      return res.status(400).json({ message: "Falta el parámetro userId." });
+    }
 
-    const orders = await Order.find({ user: req.params.id }).populate(
+    const orders = await Order.find({ user: userId }).populate(
       "user",
       "name email role"
     );
