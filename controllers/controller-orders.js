@@ -48,6 +48,10 @@ const obtenerPedidos = async (req, res) => {
 
 const obtenerPedidosPorUsuario = async (req, res) => {
   try {
+    const { userId } = req.query;
+
+    const filter = userId ? { user: userId } : {};
+
     const orders = await Order.find({ user: req.params.id }).populate(
       "user",
       "name email role"
