@@ -15,6 +15,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/bakery";
 
 app.use(
   cors({
@@ -25,7 +26,7 @@ app.use(
 app.use(express.json());
 
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(MONGO_URL)
   .then(() => console.log("✅ Conectado a MongoDB"))
   .catch((err) => console.error("❌ Error al conectar:", err));
 
